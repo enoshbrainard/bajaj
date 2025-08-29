@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const FULL_NAME = "charmala Enosh Brainard";
+const FULL_NAME = "charmala_Enosh_Brainard";
 const DOB = "08062004";
 const EMAIL = "charmala.enosh2022@vitstudent.ac.in";
 const ROLL_NUMBER = "22BCE2926";
