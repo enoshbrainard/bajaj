@@ -18,30 +18,38 @@ router.post("/", (req, res) => {
       });
     }
 
-    // Processing logic directly here
     const oddNumbers = [];
     const evenNumbers = [];
     const alphabets = [];
     const specialChars = [];
     let sum = 0;
-    let concatString = "";
+    let lettersConcat = "";
 
     data.forEach((item) => {
       if (!isNaN(item)) {
         const num = parseInt(item, 10);
-        sum += num;
-        if (num % 2 === 0) {
-          evenNumbers.push(num.toString());
-        } else {
-          oddNumbers.push(num.toString());
+        if (!isNaN(num)) {
+          sum += num;
+          if (num % 2 === 0) {
+            evenNumbers.push(num.toString());
+          } else {
+            oddNumbers.push(num.toString());
+          }
         }
-      } else if (/^[a-zA-Z]$/.test(item)) {
-        alphabets.push(item);
-        concatString += item;
+      } else if (/^[a-zA-Z]+$/.test(item)) {
+        alphabets.push(item.toUpperCase());
+        lettersConcat += item;
       } else {
         specialChars.push(item);
       }
     });
+
+    // Create alternating caps reverse string
+    let reversed = lettersConcat.split("").reverse().join("");
+    let concatString = "";
+    for (let i = 0; i < reversed.length; i++) {
+      concatString += i % 2 === 0 ? reversed[i].toUpperCase() : reversed[i].toLowerCase();
+    }
 
     res.status(200).json({
       is_success: true,
@@ -50,7 +58,7 @@ router.post("/", (req, res) => {
       roll_number: ROLL_NUMBER,
       odd_numbers: oddNumbers,
       even_numbers: evenNumbers,
-      alphabets: alphabets,
+      alphabets,
       special_characters: specialChars,
       sum: sum.toString(),
       concat_string: concatString,
